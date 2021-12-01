@@ -13,3 +13,11 @@ describe('splitFileByRow', () => {
     expect(output).toEqual(['abc', 'def', '', 'ghi', 'jkl'])
   })
 })
+
+describe('splitFileByRow', () => {
+  it('should calculate the correct row', () => {
+    const output = inputFileReader.splitFileByRow(`${__dirname}/input.txt`)
+    expect(output).toEqual(['abc', 'def', '', 'ghi', 'jkl'])
+  })
+})
+
