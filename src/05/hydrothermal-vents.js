@@ -1,13 +1,13 @@
 
-const modelise = (puzzle) => {
-	return new Modelisation(puzzle)
+const modelise = (puzzle, excludeDiagonals) => {
+	return new Modelisation(puzzle, excludeDiagonals)
 }
 
 class Modelisation {
-	constructor (puzzle) {
+	constructor (puzzle, excludeDiagonals) {
 		this.map = {}
 		puzzle
-		.filter((itm) => !this.isVectorDiagonal(itm))
+		.filter((itm) => excludeDiagonals ? !this.isVectorDiagonal(itm) : true)
 		.forEach(row => {
 			this.increaseVector(row)
 		})
@@ -27,16 +27,26 @@ class Modelisation {
 		const [from, to] = vectorString.split(' -> ')
 		const [x1, y1] = from.split(',').map(itm => parseInt(itm))
 		const [x2, y2] = to.split(',').map(itm => parseInt(itm))
-		return { x1, x2, y1, y2 }
+		return { x1, y1, x2, y2 }
 	}
 
 	vectorKeys (vectorString) {
 		const { x1, x2, y1, y2 } = this.breakdownVector(vectorString)
-		const [xMin, xMax] = [x1, x2].sort((a,b) => a-b)
-		const [yMin, yMax] = [y1, y2].sort((a,b) => a-b)
-		return new Array((xMax - xMin) + 1).fill().map((_, xIndex) => new Array(yMax - yMin+1).fill().map((_, yIndex) => 
-			`${xMin + xIndex}-${yMin + yIndex}`
-		)).flat()
+		return new Array(Math.max(Math.abs(x2-x1)+1, Math.abs(y2-y1)+1)).fill().map((_, index) => {
+      const dX = x2-x1 > 0 
+        ? index
+        : x2-x1 === 0 
+          ? 0
+          : -index
+
+      const dY = y2-y1 > 0 
+          ? index
+          : y2-y1 === 0 
+            ? 0
+            : -index
+
+      return `${x1 + dX} - ${y1 + dY}`
+    }).flat()
 	}
 
 	increaseKey (key) {

@@ -12,10 +12,20 @@ const input =
 0,0 -> 8,8
 5,5 -> 8,2`.split('\n')
 
-describe('modelise and countOverlaps', () => {
+describe('modelise and countOverlaps excluding diagonals', () => {
   it('should modelise vents in straight line and count the number of a min of 2 overlapping vents', () => {
+    const excludeDiagonals = true
     expect(
-      vents.modelise(input).countOverlaps(2)
+      vents.modelise(input, excludeDiagonals).countOverlaps(2)
     ).toBe(5)
+  })
+})
+
+describe('modelise and countOverlaps including diagonals', () => {
+  it('should modelise vents in straight line and count the number of a min of 2 overlapping vents', () => {
+    const excludeDiagonals = false
+    expect(
+      vents.modelise(input, excludeDiagonals).countOverlaps(2)
+    ).toBe(12)
   })
 })
