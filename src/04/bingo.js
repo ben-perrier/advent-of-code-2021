@@ -1,4 +1,9 @@
-const play = (puzzle) => {
+/**
+ * What is the first board to win?
+ * @param {*} puzzle 
+ * @returns 
+ */
+const playToWin = (puzzle) => {
 	const [calledNumbersInput, ...gridsInputs] = puzzle.split('\n\n')
 
 	const grids = gridsInputs.map(itm => new Grid(itm))
@@ -14,6 +19,39 @@ const play = (puzzle) => {
 		return numberCalled * winningBoardUnmarkedNumbers
 	}
 }
+
+/**
+ * What is the last board to win?
+ * @param {*} puzzle 
+ * @returns 
+ */
+const playToLose = (puzzle) => {
+	const [calledNumbersInput, ...gridsInputs] = puzzle.split('\n\n')
+
+	const grids = gridsInputs.map(itm => new Grid(itm))
+	const calledNumbers = calledNumbersInput.match(/[0-9]+/g).map(number => parseInt(number))
+
+	const winners = []
+
+	for (let numberCalled of calledNumbers) {
+		grids.forEach(grid => grid.call(numberCalled))
+		
+		grids.forEach((grid, index) => {
+			const hasWon = grid.hasWon()
+			if (hasWon) {
+				const [winner] = grids.splice(index, 1)
+				winners.push(winner)
+			}
+		})
+
+		if (grids.length) continue;
+
+		const losingBoardUnmarkedNumbers = winners.slice(-1)[0].sumUpUnmarkedNumbers()
+		return numberCalled * losingBoardUnmarkedNumbers
+	}
+
+}
+
 
 class Grid {
 	constructor (input) {
@@ -55,4 +93,4 @@ class Cell {
 const transposeArray = (array) => array.map((row, rowIndex) => row.map((col, colIndex) => array[colIndex][rowIndex]))
 
 
-module.exports = { play }
+module.exports = { playToWin, playToLose }

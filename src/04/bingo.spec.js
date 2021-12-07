@@ -21,10 +21,18 @@ const input =
 22 11 13  6  5
  2  0 12  3  7`
 
-describe('play bingo', () => {
+describe('bingo > playToWin', () => {
   it('should return the winner\'s unmarked numbers times the last called number', () => {
     expect(
-      bingo.play(input)
+      bingo.playToWin(input)
     ).toBe(4512)
+  })
+})
+
+describe('bingo > playToLose', () => {
+  it('should return the loser\'s unmarked numbers times the last called number', () => {
+    expect(
+      bingo.playToLose(input)
+    ).toBe(1924)
   })
 })
