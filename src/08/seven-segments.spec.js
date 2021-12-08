@@ -53,24 +53,7 @@ describe('sevenSegments > is8', () => {
   })
 })
 
-describe('sevenSegments > PatternDecoder', () => {
-  it('should decode the pattern', () => {
-    const line = 'acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf'
-    const patternDecoder = new sevenSegments.PatternDecoder(line)
-    expect(
-      patternDecoder
-    ).toEqual(expect.objectContaining({
-      patterns: {
-        1: "ab",
-        4: "eafb",
-        7: "dab", 
-        8: "acedgfb"
-      }
-    }))
-  })
-})
-
-describe('sevenSegments > PatternDecoder > assignSegments', () => {
+describe('sevenSegments > PatternDecoder > decodePatterns', () => {
   it('assign segments', () => {
     const line = 'acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf'
     const patternDecoder = new sevenSegments.PatternDecoder(line)
@@ -90,7 +73,7 @@ describe('sevenSegments > PatternDecoder > assignSegments', () => {
         8: "acedgfb",
         9: "cefabd"
       },
-      decoder: {
+      patternToNumber: {
         "ab": "1",
         "abcdef": "9", 
         "abcdefg": "8", 

@@ -16,14 +16,9 @@ class PatternDecoder {
   constructor (line) {
     const [input, output] = line.split(' | ')
     this.input = input.split(' ')
-    this.output = output.split(' ')
+    // Sort output pattern letters in alpha order
+    this.output = output.split(' ').map(itm => itm.split('').sort().join(''))
     this.patterns = {}
-    
-    // Resolve patterns 1, 4, 7 and 8 based on their size
-    this.resolvePattern(this.input.find(itm => is1(itm)), 1)
-    this.resolvePattern(this.input.find(itm => is4(itm)), 4)
-    this.resolvePattern(this.input.find(itm => is7(itm)), 7)
-    this.resolvePattern(this.input.find(itm => is8(itm)), 8)
   }
 
   /**
@@ -35,6 +30,11 @@ class PatternDecoder {
   }
 
   decodePatterns () {
+    // Resolve patterns 1, 4, 7 and 8 based on their size (part1)
+    this.resolvePattern(this.input.find(itm => is1(itm)), 1)
+    this.resolvePattern(this.input.find(itm => is4(itm)), 4)
+    this.resolvePattern(this.input.find(itm => is7(itm)), 7)
+    this.resolvePattern(this.input.find(itm => is8(itm)), 8)
     this.resolvePattern(this.patternFor6(this.input, this.patterns[1]), 6)
     this.resolvePattern(this.patternFor3(this.input, this.patterns[1]), 3)
     this.resolvePattern(this.patternFor9(this.input, this.patterns[4]), 9)
@@ -43,7 +43,8 @@ class PatternDecoder {
     if (this.input.length !== 1) throw new Error(`More than one Pattern is left: ${JSON.stringify(this.input)}`)
     this.resolvePattern(this.input[0], 2)
     
-    this.decoder = Object.entries(this.patterns).reduce((acc, [number, pattern]) => ({ ...acc, [pattern.split('').sort().join('')]: number }), {})
+    // Provides a pattern to number map where pattern letters are ordered in alphabetical order
+    this.patternToNumber = Object.entries(this.patterns).reduce((acc, [number, pattern]) => ({ ...acc, [pattern.split('').sort().join('')]: number }), {})
     return this
   }
 
@@ -89,9 +90,7 @@ class PatternDecoder {
 
   decodeOutput () {
     const output = this.output
-    // Sort pattern letters in alpha order
-    .map(string => string.split('').sort().join(''))
-    .map(pattern => this.decoder[pattern]).join('')
+    .map(pattern => this.patternToNumber[pattern]).join('')
     return parseInt(output)
   }
 
