@@ -13,8 +13,6 @@ egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce`.split('\n')
 
 
-
-
 describe('sevenSegments > findPatternsAfterSeparator', () => {
   it('should identify a 1', () => {
     expect(
@@ -54,3 +52,63 @@ describe('sevenSegments > is8', () => {
     ).toBe(true)
   })
 })
+
+describe('sevenSegments > PatternDecoder', () => {
+  it('should decode the pattern', () => {
+    const line = 'acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf'
+    const patternDecoder = new sevenSegments.PatternDecoder(line)
+    expect(
+      patternDecoder
+    ).toEqual(expect.objectContaining({
+      patterns: {
+        1: "ab",
+        4: "eafb",
+        7: "dab", 
+        8: "acedgfb"
+      }
+    }))
+  })
+})
+
+describe('sevenSegments > PatternDecoder > assignSegments', () => {
+  it('assign segments', () => {
+    const line = 'acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf'
+    const patternDecoder = new sevenSegments.PatternDecoder(line)
+    patternDecoder.decodePatterns()
+    expect(
+      patternDecoder
+    ).toEqual(expect.objectContaining({
+      patterns: {
+        0: 'cagedb',
+        1: "ab",
+        2: 'gcdfa',
+        3: "fbcad",
+        4: "eafb",
+        5: 'cdfbe',
+        6: 'cdfgeb',
+        7: "dab", 
+        8: "acedgfb",
+        9: "cefabd"
+      },
+      decoder: {
+        "ab": "1",
+        "abcdef": "9", 
+        "abcdefg": "8", 
+        "abcdeg": "0", 
+        "abcdf": "3", 
+        "abd": "7", 
+        "abef": "4", 
+        "acdfg": "2", 
+        "bcdef": "5", 
+        "bcdefg": "6"
+      }
+    }))
+
+    expect(
+      patternDecoder.decodeOutput()
+    ).toEqual(5353)
+  })
+})
+
+
+
