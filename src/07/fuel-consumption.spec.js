@@ -18,5 +18,41 @@ describe('fuelComsumption findOptimalPosition', () => {
   })
 })
 
+describe('fuelComsumption fuelCostCrabEngineering', () => {
+  it('should return the fuel comsumption for all crabs to move to a certain horizontal position', () => {
+    expect(
+      fuelConsumption.fuelCost(input, 5, true)
+    ).toBe(168)
+  })
+})
+
+describe('fuelComsumption costOfMovingWithCrabEngineering', () => {
+  it('should return the fuel comsumption for all crabs to move to a certain horizontal position', () => {
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(16, 5)
+    ).toBe(66)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(1, 5)
+    ).toBe(10)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(2, 5)
+    ).toBe(6)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(0, 5)
+    ).toBe(15)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(2, 5)
+    ).toBe(6)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(7, 5)
+    ).toBe(3)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(1, 5)
+    ).toBe(10)
+    expect(
+      fuelConsumption.costOfMovingWithCrabEngineering(14, 5)
+    ).toBe(45)
+  })
+})
 
 
