@@ -8,7 +8,7 @@ const result_part1 = sevenSegments.findPatternsAfterSeparator(input)
 console.log({result_part1})
 
 const result_part2 = input.map(row => 
-  new sevenSegments.PatternDecoder(row).decodePatterns().decodeOutput()
+  new sevenSegments.PatternDecoder(row).resolvePatterns().decodeOutput()
 )
 .reduce((acc, itm) => acc+itm, 0)
 

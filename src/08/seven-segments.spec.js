@@ -53,11 +53,11 @@ describe('sevenSegments > is8', () => {
   })
 })
 
-describe('sevenSegments > PatternDecoder > decodePatterns', () => {
+describe('sevenSegments > PatternDecoder > resolvePatterns', () => {
   it('assign segments', () => {
     const line = 'acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf'
     const patternDecoder = new sevenSegments.PatternDecoder(line)
-    patternDecoder.decodePatterns()
+    patternDecoder.resolvePatterns()
     expect(
       patternDecoder
     ).toEqual(expect.objectContaining({

@@ -29,7 +29,7 @@ class PatternDecoder {
     if (index !== -1) this.patterns[number] = this.input.splice(index, 1)[0]
   }
 
-  decodePatterns () {
+  resolvePatterns () {
     // Resolve patterns 1, 4, 7 and 8 based on their size (part1)
     this.resolvePattern(this.input.find(itm => is1(itm)), 1)
     this.resolvePattern(this.input.find(itm => is4(itm)), 4)
@@ -55,7 +55,7 @@ class PatternDecoder {
     .find(string => matchesPattern(string, patternFor1))
   }
 
-  // 6 has 6 segments and does not matche the pattern for 1
+  // 6 has 6 segments and does not match the pattern for 1
   patternFor6 (input, patternFor1) {
     return input
     .filter(string => string.length === 6)
