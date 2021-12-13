@@ -6,7 +6,6 @@
 const findOptimalPosition = (input, withCrabEngineering) => {
   const max = Math.max(...input)
   const allCosts = new Array(max).fill().map((_, index) => fuelCost(input, index, withCrabEngineering))
-  console.log({ allCosts })
   const optimalPosition = allCosts.indexOf(Math.min(...allCosts))
   return optimalPosition
 }

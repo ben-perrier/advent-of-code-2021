@@ -15,3 +15,12 @@ describe('caves > lowPoints', () => {
     ).toBe(15)
   })
 })
+
+describe('caves > largestBasinsSizes', () => {
+  it('should find low points', () => {
+    expect(
+      caves.largestBasinsSizes(input, 3)
+    ).toBe(1134)
+  })
+})
+
